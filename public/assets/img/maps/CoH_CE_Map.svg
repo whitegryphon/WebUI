@@ -1,0 +1,11 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1700 1100">
+    <image width="1700" height="1100" xlink:href="assets/img/maps/CoH_CE_Map_small.jpg" />
+    <a xlink:href="assets/img/maps/Rikti War Zone.png"></a>
+    <rect x="65" y="662" height="21" width="46" fill="#000" opacity="0.2" />
+    <a xlink:href="assets/img/maps/Independence Port.png"></a>
+    <rect x="278" y="278" height="532" width="205" fill="#000" opacity="0.2" />
+    <a xlink:href="assets/img/maps/Rikti Crash Site.png"></a>
+    <polygon points=" 44,632, 132,632, 132,770, 185,770, 185,856, 44,856" fill="#000" opacity="0.2" />
+    <a xlink:href="assets/img/maps/Creys Folly.png"></a>
+    <polygon points="195,798, 257,798, 257,837, 465,837, 465,904, 400,904, 400,932, 262,932, 262,905, 195,905" fill="#000" opacity="0.2" />
+</svg>

@@ -1,0 +1,13 @@
+# Has passwords and stuff
+config/config.php
+
+# Composer
+composer.lock
+.env
+
+# Test files
+public/psr-test.php
+public/index2.php
+public/info.php
+public/WebUI2
+

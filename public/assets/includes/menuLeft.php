@@ -26,12 +26,6 @@
                 <p>Paragon City Map</p>
             </a>
         </li>
-        <li id="menu_notifications" class="nav-item ">
-            <a class="nav-link" href="?page=notifications">
-                <i class="material-icons">notifications</i>
-                <p>Notifications</p>
-            </a>
-        </li>
 		<li id="menu_vs2017" class="nav-item ">
             <a class="nav-link" href="?page=vs2017" >
                 <i class="fas fa-code"></i>

@@ -10,8 +10,16 @@ require '../config/config.php';
     <div class="card-body">
         <div class="container">
             <div class="row">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <span id="register-result"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-7">
-                    <form id="form_register" novalidate="novalidate" method="post" onsubmit="return doNothing();">
+                    <form id="form_register" novalidate="novalidate" method="post" onsubmit="return doSignup();">
                         <div class="form-group">
                             <label for="desired_username">Username</label>
                             <input type="text" class="form-control" id="desired_username" aria-describedby="usernameHelp" placeholder="Enter desired username" onBlur="checkUsername(<?php echo $min_username_len; ?>)" required>
@@ -23,7 +31,7 @@ require '../config/config.php';
                         </div>
                         <div class="form-group">
                             <label for="password2">Confimation Password</label>
-                            <input type="password" class="form-control" id="password2" placeholder="Confim your password" required onBlur="checkPasswords()">
+                            <input type="password" class="form-control" id="password2" placeholder="Confim your password" required onChange="checkPasswords()">
                         </div>
                         <!--
                         <div class="form-check">

@@ -39,8 +39,8 @@ class DatabaseConnection
 
     public function PrepareStatement($statement)
     {
-        global $conn;
-        $conn->prepare($statement);
-        return $conn;
+        //global $conn;
+        return $this->conn->prepare($statement);
+        //return $conn;
     }
 }

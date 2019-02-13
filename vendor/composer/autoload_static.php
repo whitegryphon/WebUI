@@ -41,7 +41,9 @@ class ComposerStaticInitaed93208401481e33c9e671b5454fb37
     public static $classMap = array (
         'Segs\\DatabaseConnection' => __DIR__ . '/../..' . '/src/Segs/DatabaseConnection.php',
         'Segs\\DateTime' => __DIR__ . '/../..' . '/src/Segs/DateTime.php',
+        'Segs\\MiscFunctions' => __DIR__ . '/../..' . '/src/Segs/MiscFunctions.php',
         'Segs\\Passwords' => __DIR__ . '/../..' . '/src/Segs/Passwords.php',
+        'Segs\\RETURN_TYPE' => __DIR__ . '/../..' . '/src/Segs/MiscFunctions.php',
         'Tivoka\\Client' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client.php',
         'Tivoka\\Client\\BatchRequest' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/BatchRequest.php',
         'Tivoka\\Client\\Connection\\AbstractConnection' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/Connection/AbstractConnection.php',

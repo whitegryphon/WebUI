@@ -8,7 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'Segs\\DatabaseConnection' => $baseDir . '/src/Segs/DatabaseConnection.php',
     'Segs\\DateTime' => $baseDir . '/src/Segs/DateTime.php',
+    'Segs\\MiscFunctions' => $baseDir . '/src/Segs/MiscFunctions.php',
     'Segs\\Passwords' => $baseDir . '/src/Segs/Passwords.php',
+    'Segs\\RETURN_TYPE' => $baseDir . '/src/Segs/MiscFunctions.php',
     'Tivoka\\Client' => $vendorDir . '/tivoka/tivoka/lib/Tivoka/Client.php',
     'Tivoka\\Client\\BatchRequest' => $vendorDir . '/tivoka/tivoka/lib/Tivoka/Client/BatchRequest.php',
     'Tivoka\\Client\\Connection\\AbstractConnection' => $vendorDir . '/tivoka/tivoka/lib/Tivoka/Client/Connection/AbstractConnection.php',

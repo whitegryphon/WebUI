@@ -39,6 +39,7 @@ function doLogin(){
     var formdata = document.getElementById("modal_form_login");
     var bodyvar = { 'username' : formdata.modal_login_username.value,
                     'password' : formdata.modal_login_password.value};
+	$("#modal-login").modal('hide');
     console.log(formdata);
     console.log(bodyvar);
     fetch("assets/includes/doLogin.php",
@@ -52,7 +53,9 @@ function doLogin(){
               return myBlob.json();
           }).then(function(result){
               try{
-                  window.location.replace(window.location.pathname);
+				  $("#modal-result").html(result.return_message);
+				  $("#modal-message").modal('show');
+                  //window.location.replace(window.location.pathname);
               }
               catch(e){
                   window.location.reload();

@@ -49,8 +49,11 @@ error_reporting(E_ALL);
 
     <body class="">
         <div class="wrapper ">
-            <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
+            <div id="modal-login" class="modal fade" tabindex="-1" role="dialog">
                 <?php require_once 'assets/includes/showLogin.php'; ?>
+            </div>
+            <div id="modal-message" class="modal fade" tabindex="-1" role="dialog">
+                <?php require_once 'assets/includes/showMessage.php'; ?>
             </div>
             <div class="sidebar" data-color="<?php echo $site_color; ?>" data-background-color="white" data-image="">
                 <!--
@@ -119,7 +122,7 @@ error_reporting(E_ALL);
 
                             <?php } else { ?>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="#modal-content" data-toggle="modal" data-target="#modal-content">
+                                    <a class="nav-link" href="#modal-login" data-toggle="modal" data-target="#modal-login">
                                         <i class="fa fa-sign-in"></i>Login or Sign Up
                                     </a>
                                 </li>

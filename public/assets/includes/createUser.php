@@ -2,7 +2,7 @@
     /*
     * SEGS - Super Entity Game Server
     * http://www.segs.io/
-    * Copyright (c) 2006 - 2018 SEGS Team (see AUTHORS.md)
+    * Copyright (c) 2006 - 2019 SEGS Team (see AUTHORS.md)
     * This software is licensed under the terms of the 3-clause BSD License. See LICENSE.md for details.
     */
 
@@ -115,7 +115,7 @@
         //     $_SESSION['IsAvailable'] = 'false';
         //     $response = 'not_supplied';
         // }
-        $m_create_user_message = $miscFunctions->CreateUser($m_username, $m_password);
+        $m_create_user_message = $miscFunctions->createUser($m_username, $m_password);
         $m_user_message->value += $m_create_user_message->value;
         $m_user_message->return_message[] = $m_create_user_message->return_message;
         

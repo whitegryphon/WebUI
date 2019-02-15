@@ -16,7 +16,7 @@
     use Segs\DatabaseConnection;
     use Segs\MiscFunctions;
     use Segs\ReturnValue;
-
+    
     $username = "";
     $password1 = "";
     $password2 = "";

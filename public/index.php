@@ -7,9 +7,9 @@
      */
 
     session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
     require_once '../config/config.php';
     if (isset($_GET['page'])):
@@ -18,7 +18,6 @@ error_reporting(E_ALL);
         $page = "dashboard";
     endif;
     setCookie("CurrentPage", $page);
-    //ini_set('include_path','./includes/'); //  . ini_get('include_path'));
 
 ?>
 
@@ -30,6 +29,7 @@ error_reporting(E_ALL);
         <link rel="icon" type="image/png" href="assets/img/favicon.png">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title><?php echo $site_title; ?></title>
+        <!-- WebUI -->
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -42,8 +42,6 @@ error_reporting(E_ALL);
         <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
         <link href="assets/css/segs.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.7.0/bootstrap-lightbox.css" integrity="sha256-iSJ+O7SdfdjO7VYs5/SlJm9JWfnJSkqTFjI7xQV3CvE=" crossorigin="anonymous" />
-        <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link href="assets/demo/demo.css" rel="stylesheet" />
         <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.css" type="text/css" rel="stylesheet" />
     </head>
 
@@ -140,24 +138,10 @@ error_reporting(E_ALL);
                 <footer class="footer">
                     <div class="container-fluid">
                         <nav class="float-left">
-                            <ul>
-                                <li>
-                                    <a href="https://www.creative-tim.com">Creative Tim</a>
-                                </li>
-                                <li>
-                                    <a href="https://creative-tim.com/presentation">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="http://blog.creative-tim.com">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="https://www.creative-tim.com/license">Licenses</a>
-                                </li>
-                            </ul>
+                            <?php include_once 'assets/includes/menuFooter.php'; ?>
                         </nav>
-                        <div class="copyright float-right">&copy;
-                            <script>document.write(new Date().getFullYear())</script>, made with <i class="material-icons">favorite</i> by
-                            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+                        <div class="copyright float-right">
+                            &copy; <?php echo strftime("%Y"); ?> <a href="https://segs.io" target="_blank">SEGS</a>, with help from <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
                         </div>
                     </div>
                 </footer>
@@ -178,7 +162,6 @@ error_reporting(E_ALL);
         <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         <script type="text/javascript" src="assets/js/material-dashboard.min.js?v=2.1.0"></script>
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-        <script type="text/javascript" src="assets/demo/demo.js"></script>
         <script type="text/javascript" src="assets/js/plugins/imageMapResizer.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.7.0/bootstrap-lightbox.min.js"></script>
         <script type="text/javascript" src="assets/js/segs.js"></script>

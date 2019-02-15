@@ -36,6 +36,8 @@ Many, many, **many** issues. Among them:
 - Not all actions return result (success or failure) to user.
 - Character and Zone list are updated on every reload of 'Zone Switcher' page, resulting in a lot of
 database traffic and slow refresh to that page.
+- Search and notifications do not work.
+
 
 
 _"The journey of a thousand miles, begins with but a single step."_

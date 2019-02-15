@@ -5,6 +5,9 @@ config/config.php
 composer.lock
 .env
 
+# JetBrains IDE
+.idea/
+
 # Test files
 public/psr-test.php
 public/index2.php

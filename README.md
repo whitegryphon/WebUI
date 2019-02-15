@@ -13,14 +13,14 @@ See docs/README.md for more information.
 
 ## Requirements
 
-* SEGS WebUI utilizes composer to install dependency modules. For information on installing and 
+- SEGS WebUI utilizes composer to install dependency modules. For information on installing and 
 using composer, visit https://getcomposer.org.
 
 ## SEGS WebUI Installation
 
 1. Download or clone to directory of your choice.
 2. Set the document root of your web server to `<installation_directory>/public`
-3. Configure settings as described in the [Configuration](#configuration) section.
+3. Configure settings as described in the [Configuration](#configuration) section below.
 4. Run `composer update` in installation directory to install required dependencies.
 
 ## Configuration
@@ -32,9 +32,12 @@ any necessary settings.
 
 Many, many, **many** issues. Among them:
 
-- Extraneous code
-- Not all actions return result to user
+- Extraneous code.
+- Not all actions return result (success or failure) to user.
+- Character and Zone list are updated on every reload of 'Zone Switcher' page, resulting in a lot of
+database traffic and slow refresh to that page.
 
 
+_"The journey of a thousand miles, begins with but a single step."_
 
-"The journey of a thousand miles, begins with that first step."
+&copy; 2006 - 2019 SEGS Team

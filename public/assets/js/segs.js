@@ -51,7 +51,6 @@ function doLogin(){
         return myBlob.json();
     }).then(function(result){
         try{
-            window.location.replace(window.location.pathname);
             $("#modal-result").html(result.return_message);
             $("#modal-message").modal('show');
         } catch(e) {
@@ -64,11 +63,11 @@ function doLogin(){
 function doRefresh(){
     console.log("I'm here!");
     try{
-        window.location.replace('/');
-    } catch {
         window.location.reload();
+    } catch {
+        window.location.replace('/');
     }
-    return true;
+    return false;
 }
 
 function doLogout(){
@@ -103,7 +102,6 @@ function doSignup(){
         return myBlob.json();
     }).then(function(result){
         try{
-            window.location.replace(window.location.pathname);
             $("#modal-result").html(result.return_message);
             $("#modal-message").modal('show');
         } catch(e) {
@@ -112,7 +110,7 @@ function doSignup(){
     });
 }
 
-
+/*
 //function accountsInfo(){
 //    var elementAccts = document.getElementById("num_accts");
 //    var elementChars = document.getElementById("num_chars");
@@ -126,6 +124,7 @@ function doSignup(){
 //              elementChars.innerHTML = data.num_chars;
 //          });
 //}
+*/
 
 /*menu handler*/
 //$(function(){
@@ -255,6 +254,7 @@ function doZoneSwitch()
             var myForm = document.createElement('form');
             myForm.name = "zonemove";
             myForm.id = "zonemove";
+            myForm.setAttribute("onSubmit", "return moveCharacter()");
             myForm.method = "POST";
             
             var formgroup = document.createElement('div');
@@ -296,7 +296,7 @@ function doZoneSwitch()
             let button = document.createElement('input');
             button.value = "Move";
             button.type = "button";
-            button.className = "btn btn-dark";
+            button.className = "btn btn-primary";
             button.addEventListener("click", moveCharacter);
             formgroupcol3.appendChild(button);
 
@@ -326,38 +326,55 @@ function getAccountsInfo(){
 function moveCharacter()
 {
     var moveForm = document.getElementById('zonemove');
-    var CS = moveForm.zoneSelector;
-    var postBody = {'char' : moveForm.characterSelect.value,
-                    'map' : CS.value};
-    fetch(window.location.origin + "/assets/includes/moveCharacter.php",
-          {method: 'POST',
-           headers:{
-               'charset': 'utf-8',
-               'content-type':'application/json'
-           },
-           body : JSON.stringify(postBody)
-          }
-         ).then(
-             function(myBlob){
-                 return myBlob.json();
-             }).then(
-                 function(results){
-                     if(results.value == 0){
-                         var sb = document.getElementById('switchbox');
-                         var textbox = document.createElement('div');
-                         textbox.innerText = "You successfully moved to ";
-                         var cityname = document.createElement('SPAN');
-                         cityname.style.color = "DarkGreen";
-                         cityname.style.fontWeight = "bold";
-                         cityname.innerText = CS.options[CS.selectedIndex].text;
-                         textbox.append(cityname);
-                         sb.append(textbox);
-                         setTimeout(function (){
-                             sb.removeChild(textbox);
-                         }, 2000);
-                     }
-                 }
-             );
+    var selectedCharacter = moveForm.characterSelect;
+    var selectedZone = moveForm.zoneSelector;
+    console.log("Character: " + selectedCharacter.value);
+    console.log("Zone     : " + selectedZone.value);
+    var postBody = {'char' : selectedCharacter.value, 'map' : selectedZone.value};
+    //     var CS = moveForm.zoneSelector;
+    fetch(window.location.origin + "/assets/includes/moveCharacter.php",{
+        method: 'POST',
+        headers:{
+            'charset': 'utf-8',
+            'content-type':'application/json'
+        },
+        body : JSON.stringify(postBody)
+    }).then(function(myBlob){
+        return myBlob.json();
+    }).then(function(results){
+        var return_message = "";
+        if(results.value == 0){
+            return_message = "You have successfully moved " + 
+                selectedCharacter.options[selectedCharacter.selectedIndex].text + " to " + 
+                selectedZone.options[selectedZone.selectedIndex].text;
+            
+            // var sb = document.getElementById('switchbox');
+            // var textbox = document.createElement('div');
+            // textbox.innerText = "You successfully moved to ";
+            // var cityname = document.createElement('SPAN');
+            // cityname.style.color = "DarkGreen";
+            // cityname.style.fontWeight = "bold";
+            // cityname.innerText = CS.options[CS.selectedIndex].text;
+            // textbox.append(cityname);
+            // sb.append(textbox);
+            // setTimeout(function (){
+            //     sb.removeChild(textbox);
+            // }, 2000);
+        } else {
+            return_message = "There was an problem moving " + 
+                selectedCharacter.options[selectedCharacter.selectedIndex].text + " to " + 
+                selectedZone.options[selectedZone.selectedIndex].text;
+        }
+        
+        try{
+            $("#modal-result").html(return_message);
+            $("#modal-message").modal('show');
+        } catch(e) {
+            window.location.reload();
+        }
+        
+
+    });
     return false;
 }
 

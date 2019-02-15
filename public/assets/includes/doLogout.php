@@ -18,15 +18,17 @@
 
     $result = new ReturnType();
     
-    unset($_SESSION['isAuthenticated']);
-    unset($_SESSION['username']);
     if(isset($_SESSION['isAuthenticated'])){
         $result->value = 0;
         $result->return_message = "You have been logged out.";
     } else {
-        $result->value = 0;
+        $result->value = 1;
         $result->return_message = "You were not logged in.";
     }
     
+    unset($_SESSION['isAuthenticated']);
+    unset($_SESSION['username']);
+    
     echo json_encode($result);
+    
    

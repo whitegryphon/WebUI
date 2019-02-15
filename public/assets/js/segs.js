@@ -36,71 +36,80 @@ function updateModal(m_pageName) {
 }
 
 function doLogin(){
-    var formdata = document.getElementById("modal_form_login");
-    var bodyvar = { 'username' : formdata.modal_login_username.value,
-                    'password' : formdata.modal_login_password.value};
+    var form_data = document.getElementById("modal_form_login");
+    var body_content = { 'username' : form_data.modal_login_username.value,
+                    'password' : form_data.modal_login_password.value};
 	$("#modal-login").modal('hide');
-    console.log(formdata);
-    console.log(bodyvar);
-    fetch("assets/includes/doLogin.php",
-          {method: 'POST',
-           headers:{
-               'charset': 'utf-8',
-               'content-type':'application/json'
-           },
-           body: JSON.stringify(bodyvar)
-          }).then(function(myBlob){
-              return myBlob.json();
-          }).then(function(result){
-              try{
-				  $("#modal-result").html(result.return_message);
-				  $("#modal-message").modal('show');
-                  //window.location.replace(window.location.pathname);
-              }
-              catch(e){
-                  window.location.reload();
-              }
-          });
+    fetch("assets/includes/doLogin.php",{
+        method: 'POST',
+        headers:{
+            'charset': 'utf-8',
+            'content-type':'application/json'
+        },
+        body: JSON.stringify(body_content)
+    }).then(function(myBlob){
+        return myBlob.json();
+    }).then(function(result){
+        try{
+            window.location.replace(window.location.pathname);
+            $("#modal-result").html(result.return_message);
+            $("#modal-message").modal('show');
+        } catch(e) {
+            window.location.reload();
+        }
+    });
     return false;
 }
 
+function doRefresh(){
+    console.log("I'm here!");
+    try{
+        window.location.replace('/');
+    } catch {
+        window.location.reload();
+    }
+    return true;
+}
+
 function doLogout(){
-    fetch("assets/includes/doLogout.php",
-          {method: 'GET'
-          }).then(function(result){
-              return result;
-          }).then(function(data){
-              try{
-                  window.location.replace(window.location.pathname);
-              }
-              catch(e){
-                  window.location.reload();
-              }
-          });
+    fetch("assets/includes/doLogout.php",{
+        method: 'GET'
+    }).then(function(myBlob){
+        return myBlob.json();
+    }).then(function(result){
+        try{
+            $("#modal-result").html(result.return_message);
+            $("#modal-message").modal('show');
+        } catch(e) {
+            window.location.reload();
+        }
+    });
     return true;
 }
 
 function doSignup(){
-    var formdata = document.getElementById('form_register');
+    var form_data = document.getElementById('form_register');
     var resultbox = document.getElementById('register-result');
-    var bodycont = "username=" + formdata.desired_username.value + "&password1=" + formdata.password1.value + "&password2=" + formdata.password1.value;
-    console.log("doSignup started");
+    var body_content = "username=" + form_data.desired_username.value + "&password1=" + form_data.password1.value + "&password2=" + form_data.password1.value;
+	$("#modal-login").modal('hide');
     fetch("/assets/includes/createUser.php",{
         method: 'POST',
         headers: {
             'charset': 'utf-8',
             'content-type':'application/x-www-form-urlencoded'
         },
-        body: bodycont
+        body: JSON.stringify(body_content)
     }).then(function(myBlob){
         return myBlob.json();
-    }).then(function(data){
-        // console.log("data: " + data);
-        // console.log("return_message: " + data.return_message);
-        resultbox.innerHTML=data.return_message;
-        //resultbox.show();
+    }).then(function(result){
+        try{
+            window.location.replace(window.location.pathname);
+            $("#modal-result").html(result.return_message);
+            $("#modal-message").modal('show');
+        } catch(e) {
+            window.location.reload();
+        }
     });
-    console.log("doSignup complete");
 }
 
 
@@ -224,78 +233,80 @@ function cityListPopulate(currentCity){
 
 var entities;
 
-function goZoneSwitch()
+function doZoneSwitch() 
 {
     var bodycontent = {
         'user': ''
     }
-    fetch(window.location.origin + "/assets/includes/getCharacters.php",
-          {method: 'POST',
-           headers: {
-               'charset': 'utf-8',
-               'content-type': 'application/json'
-           },
-           body: JSON.stringify(bodycontent)
-          }).then(function(myBlob){
-              return myBlob.json();
-          }).then(function(results){
-              entities = results;
-              var myForm = document.createElement('form');
-              myForm.name = "zonemove";
-              myForm.id = "zonemove";
-              myForm.method = "POST";
-              
-              
-              var formgroup = document.createElement('div');
-              formgroup.className = "form-row align-items-center";
-              myForm.appendChild(formgroup);
+    fetch(window.location.origin + "/assets/includes/getCharacters.php",{
+        method: 'POST',
+        headers: {
+            'charset': 'utf-8',
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(bodycontent)
+    }).then(function(myBlob){
+        return myBlob.json();
+    }).then(function(results){
+        if(results.length == 0){
+            document.getElementById('switchbox').innerHTML = "You do not currently have any heroes on this server.<br>Once you have logged in and created one, you will see them here.";
+        } else {
+            entities = results;
+            var myForm = document.createElement('form');
+            myForm.name = "zonemove";
+            myForm.id = "zonemove";
+            myForm.method = "POST";
+            
+            var formgroup = document.createElement('div');
+            formgroup.className = "form-row align-items-center";
+            myForm.appendChild(formgroup);
 
-              var formgroupcol1 = document.createElement('div');
-              formgroupcol1.className = "col-sm-3 my-1";
-              formgroup.appendChild(formgroupcol1);
+            var formgroupcol1 = document.createElement('div');
+            formgroupcol1.className = "col-sm-3 my-1";
+            formgroup.appendChild(formgroupcol1);
 
-              var charselect = document.createElement('select');
-              charselect.id = "characterSelect";
-              charselect.name = "character";
-              charselect.className = "custom-select mr-sm-2";
-              for(let i = 0; i < results.length; i++){
-                  let character = JSON.parse(results[i]);
-                  let entitydata = JSON.parse(character.entitydata);
-                  var charopt = document.createElement('option');
-                  charopt.value = i;
-                  charopt.innerText = character.name;
-                  charselect.appendChild(charopt);
-              }
-              formgroupcol1.appendChild(charselect);
-              
-              var formgroupcol2 = document.createElement('div');
-              formgroupcol2.className = "col-sm-3 my-1";
-              formgroup.appendChild(formgroupcol2);
+            var charselect = document.createElement('select');
+            charselect.id = "characterSelect";
+            charselect.name = "character";
+            charselect.className = "custom-select mr-sm-2";
+            for(let i = 0; i < results.length; i++) {
+                let character = JSON.parse(results[i]);
+                let entitydata = JSON.parse(character.entityData);
+                var charopt = document.createElement('option');
+                charopt.value = i;
+                charopt.innerText = character.name;
+                charselect.appendChild(charopt);
+            }
+            formgroupcol1.appendChild(charselect);
+                  
+            var formgroupcol2 = document.createElement('div');
+            formgroupcol2.className = "col-sm-3 my-1";
+            formgroup.appendChild(formgroupcol2);
 
-              var zoneSel = document.createElement('select');
-              zoneSel.id = "zoneSelector";
-              zoneSel.name = "city";
-              zoneSel.className = "custom-select mr-sm-2";
-              formgroupcol2.appendChild(zoneSel);
-              
-              
-              var formgroupcol3 = document.createElement('div');
-              formgroupcol3.className = "col-sm-3 my-1";
-              formgroup.appendChild(formgroupcol3);
+            var zoneSel = document.createElement('select');
+            zoneSel.id = "zoneSelector";
+            zoneSel.name = "city";
+            zoneSel.className = "custom-select mr-sm-2";
+            formgroupcol2.appendChild(zoneSel);
+                 
+            var formgroupcol3 = document.createElement('div');
+            formgroupcol3.className = "col-sm-3 my-1";
+            formgroup.appendChild(formgroupcol3);
 
-              let button = document.createElement('input');
-              button.value = "Move";
-              button.type = "button";
-              button.className = "btn btn-dark";
-              button.addEventListener("click", moveCharacter);
-              formgroupcol3.appendChild(button);
-              
-              
-              document.getElementById('switchbox').innerHTML = "";
-              document.getElementById('switchbox').appendChild(myForm);
-              cityListPopulate(1);
+            let button = document.createElement('input');
+            button.value = "Move";
+            button.type = "button";
+            button.className = "btn btn-dark";
+            button.addEventListener("click", moveCharacter);
+            formgroupcol3.appendChild(button);
 
-          });
+            document.getElementById('switchbox').innerHTML = "";
+            document.getElementById('switchbox').appendChild(myForm);
+            cityListPopulate(1);
+        }
+    }, function(){
+        document.getElementById('switchbox').innerHTML = "We are unable to display any characters at this time.";
+    });
 }
 
 function getAccountsInfo(){

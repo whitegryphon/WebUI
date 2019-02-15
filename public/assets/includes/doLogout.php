@@ -7,5 +7,26 @@
      */
 
     session_start();
-    unset($_SESSION['authenticated']);
+    require_once '../../../config/config.php';
+    require_once '../../../vendor/autoload.php';
+    
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+    
+    use Segs\ReturnType;
+
+    $result = new ReturnType();
+    
+    unset($_SESSION['isAuthenticated']);
     unset($_SESSION['username']);
+    if(isset($_SESSION['isAuthenticated'])){
+        $result->value = 0;
+        $result->return_message = "You have been logged out.";
+    } else {
+        $result->value = 0;
+        $result->return_message = "You were not logged in.";
+    }
+    
+    echo json_encode($result);
+   

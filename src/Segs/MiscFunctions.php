@@ -46,11 +46,11 @@ error_reporting(E_ALL);
 
         function hashPassword($plaintext_pass, $salt) {
             try {
-                $test = hash('sha256', $plaintext_pass . $salt, true);
+                $hashed_password = hash('sha256', $plaintext_pass . $salt, true);
             } catch (Exception $e) {
-                $test = null;
+                $hashed_password = null;
             }
-            return $test;
+            return $hashed_password;
         }
 
         public function createUser($m_username, $m_password)

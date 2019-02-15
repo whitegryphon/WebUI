@@ -7,14 +7,14 @@
      */
 
     session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 
-    //if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
-    //    header("Location: https://" . $_SERVER['HTTP_HOST']);
-    //}
+    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
+        header("Location: https://" . $_SERVER['HTTP_HOST']);
+    }
 
     require_once '../../../config/config.php';
     require_once '../../../vendor/autoload.php';
@@ -24,8 +24,8 @@ error_reporting(E_ALL);
 	use Segs\DatabaseConnection;
 	
 
-    function commit_login($m_username, $m_password, &$m_result){
-		$segsFunction = new MiscFunctions();
+    function loginUser($m_username, $m_password, &$m_result){
+		$miscFunctions = new MiscFunctions();
 		global $dbhost, $dbuser, $dbpass, $accdb;
 		$databaseConnection =  new DatabaseConnection($dbhost, $dbuser, $dbpass, $accdb);
 		if($databaseConnection) {
@@ -37,7 +37,7 @@ error_reporting(E_ALL);
 				} else{
 					$stmt->bind_result($passw, $salt);
 					$stmt->fetch();
-					$saltedpwd = $segsFunction->hashPassword($m_password, $salt);
+					$saltedpwd = $miscFunctions->hashPassword($m_password, $salt);
 					if(!strcasecmp($saltedpwd, $passw)){
 						$m_result->return_message = "Signed in successfully!";
 						$m_result->value = 0;
@@ -51,7 +51,7 @@ error_reporting(E_ALL);
 			}
 			$databaseConnection->closeConnection();
 		} else {
-			$m_result->return_message = "Failed to connect to db.";
+			$m_result->return_message = "Failed to connect to database.";
 			return $m_result;
 		}
         //$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $accdb);
@@ -61,6 +61,6 @@ error_reporting(E_ALL);
     $content = trim(file_get_contents("php://input"));//
     $decoded = json_decode($content, true);
     $result = new ReturnType();
-    commit_login($decoded['username'], $decoded['password'], $result);
+    loginUser($decoded['username'], $decoded['password'], $result);
 
     echo json_encode($result);

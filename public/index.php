@@ -93,7 +93,7 @@ error_reporting(E_ALL);
                                 </div>
                             </form>
                             <ul class="navbar-nav">
-                            <?php if(isset($_SESSION['authenticated'])) { ?>
+                            <?php if(isset($_SESSION['isAuthenticated'])) { ?>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons">notifications</i>

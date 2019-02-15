@@ -15,10 +15,10 @@
         </div>
     </div>
 </div>
-<?php if(isset($_SESSION['authenticated'])) { ?>
+<?php if(isset($_SESSION['isAuthenticated'])) { ?>
     <script type="text/javascript">
         window.onload = function () {
-            goZoneSwitch();
+            doZoneSwitch();
         }
     </script>
 <?php } else { ?>

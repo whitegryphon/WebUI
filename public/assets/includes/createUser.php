@@ -9,12 +9,13 @@
     session_start();
     require_once '../../../config/config.php';
     require_once '../../../vendor/autoload.php';
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
     
     use Segs\DatabaseConnection;
     use Segs\MiscFunctions;
+    use Segs\ReturnValue;
 
     $username = "";
     $password1 = "";
@@ -30,12 +31,12 @@
             validate password1 and password2 match
     */
 
-    class RETURN_VALUE {
-        public $value = 0;
-        public $return_message = array();
-    }
+    //class RETURN_VALUE {
+    //    public $value = 0;
+    //    public $return_message = array();
+    //}
 
-    $user_message = new RETURN_VALUE();
+    $user_message = new ReturnValue();
 
     //Validate variables
     if(!empty($_POST['username'])) {
@@ -88,7 +89,8 @@
         //$m_user_message = new RETURN_VALUE;
         $miscFunctions = new MiscFunctions();
 
-        global $site_admin, $dbhost, $dbuser, $dbpass, $accdb;
+        global $site_admin;
+        // , $dbhost, $dbuser, $dbpass, $accdb;
         //global $segsFunction;
         //$db_conn = new DatabaseConnection($dbhost, $dbuser, $dbpass, $accdb);
         //

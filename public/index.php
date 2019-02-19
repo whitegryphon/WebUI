@@ -34,14 +34,15 @@
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
+        <!-- Font Awesome          -->
         <!--
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
         -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <!-- CSS Files -->
         <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-        <link href="assets/css/segs.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.7.0/bootstrap-lightbox.css" integrity="sha256-iSJ+O7SdfdjO7VYs5/SlJm9JWfnJSkqTFjI7xQV3CvE=" crossorigin="anonymous" />
+        <link href="assets/css/segs.css" rel="stylesheet" />
         <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.css" type="text/css" rel="stylesheet" />
     </head>
 
@@ -114,14 +115,14 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#logout" onclick="doLogout();">
-                                        <i class="fa fa-sign-out"></i>Log Out
+                                        <i class="fas fa-sign-out"></i>Log Out
                                     </a>
                                 </li>
 
                             <?php } else { ?>
                                 <li class="nav-item ">
                                     <a class="nav-link" href="#modal-login" data-toggle="modal" data-target="#modal-login">
-                                        <i class="fa fa-sign-in"></i>Login or Sign Up
+                                        <i class="fas fa-sign-in"></i>Login or Sign Up
                                     </a>
                                 </li>
                             <?php } ?>
@@ -163,9 +164,8 @@
         <script type="text/javascript" src="assets/js/material-dashboard.min.js?v=2.1.0"></script>
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script type="text/javascript" src="assets/js/plugins/imageMapResizer.min.js"></script>
+        <script type="text/javascript" src="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" charset="utf-8"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.7.0/bootstrap-lightbox.min.js"></script>
         <script type="text/javascript" src="assets/js/segs.js"></script>
-        <script type="text/javascript" src="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" charset="utf-8"></script>
     </body>
-
 </html>

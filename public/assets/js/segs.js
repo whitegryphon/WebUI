@@ -5,7 +5,8 @@
  * This software is licensed under the terms of the 3-clause BSD License. See LICENSE.md for details.
  */
 
-function makeRequest(m_elementId, m_page, m_function) {
+function makeRequest(m_elementId, m_page, m_function)
+{
 	var httpRequest;
 	var m_docElement = document.getElementById(m_elementId);
     httpRequest = new XMLHttpRequest();
@@ -18,27 +19,31 @@ function makeRequest(m_elementId, m_page, m_function) {
     httpRequest.send();
 }
 	
-function showContents(m_docElement, m_httpRequest) {
+function showContents(m_docElement, m_httpRequest)
+{
 	m_docElement.innerHTML = m_httpRequest.responseText;
 }
 
-function updateMain(m_pageName) {
+function updateMain(m_pageName)
+{
     var m_view_file;
     m_view_file = 'assets/views/' + m_pageName + '.php'
     makeRequest('main-content', m_view_file, showContents);
     setCookie("CurrentPage", m_pageName, 1);
 }
 
-function updateModal(m_pageName) {
+function updateModal(m_pageName)
+{
     var m_include_file;
     m_include_file = 'assets/includes/' + m_pageName + '.php'
     makeRequest('modal-content', m_include_file, showContents);
 }
 
-function doLogin(){
+function doLogin()
+{
     var form_data = document.getElementById("modal_form_login");
-    var body_content = { 'username' : form_data.modal_login_username.value,
-                    'password' : form_data.modal_login_password.value};
+    var body_content = {'username' : form_data.modal_login_username.value,
+                        'password' : form_data.modal_login_password.value};
 	$("#modal-login").modal('hide');
     fetch("assets/includes/doLogin.php",{
         method: 'POST',
@@ -47,30 +52,38 @@ function doLogin(){
             'content-type':'application/json'
         },
         body: JSON.stringify(body_content)
-    }).then(function(myBlob){
-        return myBlob.json();
-    }).then(function(result){
-        try{
-            $("#modal-result").html(result.return_message);
-            $("#modal-message").modal('show');
-        } catch(e) {
-            window.location.reload();
-        }
-    });
+    })
+        .then(function(myBlob){
+            return myBlob.json();
+        })
+        .then(function(result){
+            try {
+                $("#modal-result").html(result.return_message);
+                $("#modal-message").modal('show');
+            } catch(e) {
+                window.location.reload();
+            }
+        });
     return false;
 }
 
-function doRefresh(){
-    console.log("I'm here!");
-    try{
-        window.location.reload();
+function doRefresh()
+{
+    try {
+        var urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('page') === "register") {
+            window.location.replace('/');
+        } else {
+            window.location.reload();
+        }
     } catch {
         window.location.replace('/');
     }
     return false;
 }
 
-function doLogout(){
+function doLogout()
+{
     fetch("assets/includes/doLogout.php",{
         method: 'GET'
     }).then(function(myBlob){
@@ -86,28 +99,45 @@ function doLogout(){
     return true;
 }
 
-function doSignup(){
+//     console.log(new Date().toUTCString() + " isAvailable: (PRIOR) " + isAvailable.toString());
+
+function doSignup()
+{
     var form_data = document.getElementById('form_register');
     var resultbox = document.getElementById('register-result');
-    var body_content = "username=" + form_data.desired_username.value + "&password1=" + form_data.password1.value + "&password2=" + form_data.password1.value;
-	$("#modal-login").modal('hide');
-    fetch("/assets/includes/createUser.php",{
+    // Explicitly setting vars for troubleshooting
+    var username = form_data.desired_username.value;
+    var password1 = form_data.password1.value;
+    var password2 = form_data.password2.value;
+    var body_content = {'username': username,
+                        'password1': password1,
+                        'password2': password2};
+	// $("#modal-login").modal('hide');
+    fetch("/assets/includes/createUser.php",
+    {
         method: 'POST',
-        headers: {
-            'charset': 'utf-8',
-            'content-type':'application/x-www-form-urlencoded'
-        },
-        body: JSON.stringify(body_content)
-    }).then(function(myBlob){
-        return myBlob.json();
-    }).then(function(result){
-        try{
-            $("#modal-result").html(result.return_message);
-            $("#modal-message").modal('show');
-        } catch(e) {
-            window.location.reload();
-        }
-    });
+        headers: {'charset': 'utf-8',
+                  'content-type': 'application/json' },
+        body: JSON.stringify(body_content),
+    })
+        //.then(handleErrors)
+        .then(myBlob => myBlob.json())
+        .then(function(result){
+            m_status = false;
+            try {
+                $("#modal-result").html(result.return_message);
+                $("#modal-message").modal('show');
+                m_status = true;
+            } catch(e) {
+                //window.location.reload();
+                m_status = false;
+            }
+            return m_status;
+        })
+        .catch(function(error) {
+            console.log(new Date().toUTCString() + " " + error); 
+        });
+    return false;
 }
 
 /*
@@ -128,7 +158,8 @@ function doSignup(){
 
 /*menu handler*/
 //$(function(){
-function stripTrailingSlash(str) {
+function stripTrailingSlash(str)
+ {
     if(str.substr(-1) == '/') {
         return str.substr(0, str.length - 1);
     }
@@ -146,10 +177,11 @@ var activePage = stripTrailingSlash(url);
       $(this).parent().addClass('active'); 
     } 
   });
-*/
 //});
+*/
 
-function setActiveItem(){
+function setActiveItem()
+{
     var path = window.location.pathname;
     console.log(path);
     path = path.replace(/\/$/,"");
@@ -157,7 +189,8 @@ function setActiveItem(){
     path = decodeURIComponent(path)
 }
 
-function getCookie(cookieName) {
+function getCookie(cookieName)
+{
     var i, x, y, ARRcookies = document.cookie.split(";");
     for (i = 0; i < ARRcookies.length; i++) {
         x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
@@ -169,14 +202,15 @@ function getCookie(cookieName) {
     }
 }
 
-function setCookie(cookieName, cookieValue, expirationInDays) {
+function setCookie(cookieName, cookieValue, expirationInDays)
+{
     var expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + expirationInDays);
     var newCookieValue = escape(cookieValue) + ((expirationInDays == null) ? "" : "; expires=" + expirationDate.toUTCString());
     document.cookie = cookieName + "=" + newCookieValue;
 }
 
-$(function() {
+$(function(){
 	// retrieve cookie value on page load
 	var activePage = getCookie("CurrentPage");
 	var $menuItem;
@@ -192,7 +226,8 @@ $(function() {
 	$($menuItem).addClass('active');
 });
 
-function cityListPopulate(currentCity){
+function cityListPopulate(currentCity)
+{
     //document.getElementById('zoneswitch').style.display = "block";
     var cities = ["Outbreak", "Atlas Park", "King's Row", "Galaxy City",
                   "Steel Canyon", "Skyway City", "Talos Island", "Independence Port",
@@ -309,7 +344,8 @@ function doZoneSwitch()
     });
 }
 
-function getAccountsInfo(){
+function getAccountsInfo()
+{
     var elementAccts = document.getElementById("num_accts");
     var elementChars = document.getElementById("num_chars");
     //fetch("https://segs.verybadpanda.com/assets/includes/getAccounts.php",
@@ -388,33 +424,29 @@ function checkUsername(usernameMinLength)
     var isAvailable = false;
     var isLongEnough = false;
     var isValid = false;
-
+    var request = null;
+    
     // Check username length
     if(username.length >= usernameMinLength)
     {
         isLongEnough = true;
     }
+    
     changeStatusById("username-requirements-length", isLongEnough);
 
-    console.log(new Date().toUTCString() + " isAvailable: (PRIOR) " + isAvailable.toString());
+    request = checkUsernameAvailability(username);
     
-    var request = checkUsernameAvailability(username);
-    
-    $.when(request).done(function(data)
-    {
-        if(data === 'true')
-        {
+    $.when(request).done(function(data) {
+        if(data === 'true') {
             isAvailable = true;
         }
-        console.log(new Date().toUTCString() + " isAvailable: (DURING) " + isAvailable.toString());
-
-        console.log(new Date().toUTCString() + " isAvailable: (END) " + isAvailable.toString());
+        
         changeStatusById("username-requirements-unique", isAvailable);
         
-        if(isAvailable && isLongEnough)
-        {
+        if(isAvailable && isLongEnough) {
             isValid = true;
         }
+        
         changeStatusById("username-requirements", isValid);
     });
 }
@@ -544,8 +576,8 @@ function checkPassword(str)
 
 function checkPasswords()
 {
-    var username1 = document.getElementById('desired_username');
-    username1.value = username1.value.replace(/^\s+|\s+$/g, "");
+    var username = document.getElementById('desired_username');
+    username.value = username.value.replace(/^\s+|\s+$/g, "");
     var password1 = document.getElementById('password1');
     var password2 = document.getElementById('password2');
     var passwordIsLongEnough = true;
@@ -557,9 +589,9 @@ function checkPasswords()
     var isSuccess = true;
     
     var message = "";
-    if(username1 === null)
+    if(username === null)
     {
-        username1 = "";
+        username = "";
     }
 
     if(password1.value === "" ) 
@@ -599,7 +631,7 @@ function checkPasswords()
     }
     changeStatusById("passwords-match", passwordsMatch);
 
-    if(password1.value.toLowerCase() === username1.value.toLowerCase())
+    if(password1.value.toLowerCase() === username.value.toLowerCase())
     {
         passwordIsNotUserName = false;
         isSuccess =  false;
@@ -618,6 +650,7 @@ function checkPasswords()
     return isSuccess;
 }
 
+/* 
 // ///var wsUri = "wss://segs.aruin.com";
 // ///
 // ///
@@ -710,12 +743,14 @@ function checkPasswords()
 // ///     pre.innerHTML = message;
 // ///     output.appendChild(pre);
 // /// }
+*/
 
+/*
 //document.addEventListener("load", add_services(), false);
 //document.getElementById("rpc-connect").onclick = function() {
 //    initRpc();
 //};
-
+*/
 
 $(".nav .nav-item").on("click", function(){
     var path = window.location.pathname;

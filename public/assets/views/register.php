@@ -9,16 +9,6 @@ require '../config/config.php';
     </div>
     <div class="card-body">
         <div class="container">
-		<!--
-            <div class="row">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <span id="register-result"></span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-		-->
             <div class="row">
                 <div class="col-7">
                     <form id="form_register" novalidate="novalidate" method="post" onsubmit="return doSignup();">
@@ -60,7 +50,7 @@ require '../config/config.php';
                             <div class="list-group">
                                 <div id="password-complex-not-username"  class="list-group-item py-0"><i id="icon-password-complex-not-username"  class="far fa-square"></i> ...is not the same as the username</div>
                                 <div id="password-complex-length"        class="list-group-item py-0"><i id="icon-password-complex-length"        class="far fa-square"></i> ...meets length requirement</div>
-                                <div id="password-complex-special"       class="list-group-item py-0"><i id="icon-password-complex-special"       class="far fa-square"></i> ...meets character requirement</div>
+                                <div id="password-complex-special"       class="list-group-item py-0"><i id="icon-password-complex-special"       class="far fa-square"></i> ...meets character requirements</div>
                             </div>
                         </div>
                     </div>

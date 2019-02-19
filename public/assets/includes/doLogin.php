@@ -32,26 +32,28 @@
 			if($stmt = $databaseConnection->prepareStatement("SELECT passw, salt FROM accounts WHERE username = ?")){
 				$stmt->bind_param('s', $m_username);
 				if(!$stmt->execute()){
-					$m_result->return_message = "User lookup failed. Please check your username and try again.";
+					$m_result->return_message = "<div>User lookup failed. Please check your username and try again.</div>";
 					return $m_result;
 				} else{
 					$stmt->bind_result($passw, $salt);
 					$stmt->fetch();
 					$saltedpwd = $miscFunctions->hashPassword($m_password, $salt);
 					if(!strcasecmp($saltedpwd, $passw)){
-						$m_result->return_message = "Signed in successfully!";
+						$m_result->return_message[] = "<div>Welcome, {$m_username}!</div>";
+						$m_result->return_message[] = "<div>You have been signed in successfully!</div>";
 						$m_result->value = 0;
 						$_SESSION['isAuthenticated'] = true;
 						$_SESSION['username'] = $m_username;
 					} else{
-						$m_result->return_message = "Wrong credentials.";
+						$m_result->return_message[] = "<div>We are unable to sign you in with the username '{$m_username}'</div>";
+						$m_result->return_message[] = "<div>Please check your username and password, and try again.</div>";
 					}
 					$stmt->free_result();
 				}
 			}
 			$databaseConnection->closeConnection();
 		} else {
-			$m_result->return_message = "Failed to connect to database.";
+			$m_result->return_message[] = "<div>Failed to connect to database.</div>";
 			return $m_result;
 		}
         //$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $accdb);

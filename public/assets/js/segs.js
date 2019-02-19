@@ -45,7 +45,7 @@ function doLogin()
     var body_content = {'username' : form_data.modal_login_username.value,
                         'password' : form_data.modal_login_password.value};
 	$("#modal-login").modal('hide');
-    fetch("assets/includes/doLogin.php",{
+    fetch("/assets/includes/doLogin.php",{
         method: 'POST',
         headers:{
             'charset': 'utf-8',
@@ -84,7 +84,7 @@ function doRefresh()
 
 function doLogout()
 {
-    fetch("assets/includes/doLogout.php",{
+    fetch("/assets/includes/doLogout.php",{
         method: 'GET'
     }).then(function(myBlob){
         return myBlob.json();
@@ -99,19 +99,13 @@ function doLogout()
     return true;
 }
 
-//     console.log(new Date().toUTCString() + " isAvailable: (PRIOR) " + isAvailable.toString());
-
 function doSignup()
 {
     var form_data = document.getElementById('form_register');
     var resultbox = document.getElementById('register-result');
-    // Explicitly setting vars for troubleshooting
-    var username = form_data.desired_username.value;
-    var password1 = form_data.password1.value;
-    var password2 = form_data.password2.value;
-    var body_content = {'username': username,
-                        'password1': password1,
-                        'password2': password2};
+    var body_content = {'username': form_data.desired_username.value,
+                        'password1': form_data.password1.value,
+                        'password2': form_data.password2.value};
 	// $("#modal-login").modal('hide');
     fetch("/assets/includes/createUser.php",
     {
@@ -120,7 +114,6 @@ function doSignup()
                   'content-type': 'application/json' },
         body: JSON.stringify(body_content),
     })
-        //.then(handleErrors)
         .then(myBlob => myBlob.json())
         .then(function(result){
             m_status = false;
@@ -159,7 +152,7 @@ function doSignup()
 /*menu handler*/
 //$(function(){
 function stripTrailingSlash(str)
- {
+{
     if(str.substr(-1) == '/') {
         return str.substr(0, str.length - 1);
     }
@@ -585,23 +578,19 @@ function checkPasswords()
     var passwordsMatch = true;
     var passwordIsNotUserName = true;
     var passwordIsValid = true;
-
     var isSuccess = true;
-    
     var message = "";
-    if(username === null)
-    {
+
+    if(username === null) {
         username = "";
     }
 
-    if(password1.value === "" ) 
-    {
+    if(password1.value === "" ) {
         passwordIsNotEmpty = false;
         isSuccess =  false;
     }
         
-    if(password2.value === "" ) 
-    {
+    if(password2.value === "" ) {
         passwordIsNotEmpty = false;
         isSuccess =  false;
     }
@@ -617,140 +606,34 @@ function checkPasswords()
         $("#password-status").html("");
     */
     
-    if(!passwordIsNotEmpty || password1.value.length < passwordMinLength)
-    {
+    if(!passwordIsNotEmpty || password1.value.length < passwordMinLength) {
         passwordIsLongEnough = false;
         isSuccess =  false;
     } 
     changeStatusById("password-complex-length", passwordIsLongEnough);
         
-    if(!passwordIsNotEmpty || password1.value !== password2.value)
-    {
+    if(!passwordIsNotEmpty || password1.value !== password2.value) {
         passwordsMatch = false;
         isSuccess =  false;
     }
     changeStatusById("passwords-match", passwordsMatch);
 
-    if(password1.value.toLowerCase() === username.value.toLowerCase())
-    {
+    if(password1.value.toLowerCase() === username.value.toLowerCase()) {
         passwordIsNotUserName = false;
         isSuccess =  false;
     }
     changeStatusById("password-complex-not-username", passwordIsNotUserName);
 
-    if(!passwordIsNotEmpty || !checkPassword(password1.value))
-    {
+    if(!passwordIsNotEmpty || !checkPassword(password1.value)) {
         passwordIsValid = false;
         isSuccess = false;
     }
     changeStatusById("password-complex-special", passwordIsValid);
-
     changeStatusById("password-complex", isSuccess);
-    // console.log(message);
+
     return isSuccess;
 }
 
-/* 
-// ///var wsUri = "wss://segs.aruin.com";
-// ///
-// ///
-// /// var output;
-// /// var available_services = ["helloServer", "getVersion", "ping"]; // To add a new service, add to this list.
-// /// 
-// /// function add_services() {
-// ///     var table = document.getElementById("button_table");
-// ///     var i;
-// ///     for (i = 0; i < available_services.length; i++) {
-// ///         var row = table.insertRow(0);
-// ///         var cell1 = row.insertCell(0);
-// ///         var pre = document.createElement("button");
-// ///         pre.setAttribute("id", available_services[i]);
-// ///         pre.setAttribute("class", "service_button");
-// ///         pre.addEventListener('click', function() {
-// ///             makeCall(this.id);
-// ///         }, false);
-// ///         var buttonText = available_services[i];
-// ///         pre.innerHTML = buttonText;
-// ///         cell1.appendChild(pre);
-// ///     }
-// /// }
-// /// 
-// /// function initRpc() {
-// ///     add_services();//
-// ///     output = document.getElementById("output");
-// ///     //openWebSocket();
-// /// }
-// /// 
-// /// function openWebSocket() {
-// ///     websocket = new WebSocket(wsUri);
-// ///     websocket.onopen = function(evt) {
-// ///         onOpen(evt)
-// ///     };
-// ///     websocket.onclose = function(evt) {
-// ///         onClose(evt)
-// ///     };
-// ///     websocket.onmessage = function(evt) {
-// ///         onMessage(evt)
-// ///     };
-// ///     websocket.onerror = function(evt) {
-// ///         onError(evt)
-// ///     };
-// /// }
-// /// 
-// /// function onOpen(evt) {
-// ///     writeToScreen("CONNECTED TO: " + wsUri);
-// /// }
-// /// 
-// /// function makeCall(message) {
-// ///     doSend(message);
-// /// }
-// /// 
-// /// function onClose(evt) {
-// ///     writeToScreen("DISCONNECTED");
-// /// }
-// /// 
-// /// function onMessage(evt) {
-// ///     writeToScreen('<span style="color: blue;">SERVER RESPONSE: ' + evt.data + '</span>');
-// ///     processResponse(evt.data);
-// /// }
-// /// 
-// /// function onError(evt) {
-// ///     writeToScreen('<span style="color: red;">SERVER ERROR:</span> ' + evt.data);
-// /// }
-// /// 
-// /// function processResponse(response) {
-// ///     var obj = JSON.parse(response);
-// ///     result = obj.result;
-// ///     writeToScreen('<span style="color: green;">PROCESSED RESPONSE:</span> ' + result);
-// ///     websocket.close();
-// /// }
-// /// 
-// /// function doSend(message) {
-// ///     var timestamp = new Date().getTime();
-// ///     var request_payload = JSON.stringify({
-// ///         jsonrpc: "2.0",
-// ///         method: message,
-// ///         params: {},
-// ///         id: timestamp
-// ///     });
-// ///     websocket.send(request_payload);
-// ///     writeToScreen("SENT: " + request_payload);
-// /// }
-// /// 
-// /// function writeToScreen(message) {
-// ///     var pre = document.createElement("p");
-// ///     pre.style.wordWrap = "break-word";
-// ///     pre.innerHTML = message;
-// ///     output.appendChild(pre);
-// /// }
-*/
-
-/*
-//document.addEventListener("load", add_services(), false);
-//document.getElementById("rpc-connect").onclick = function() {
-//    initRpc();
-//};
-*/
 
 $(".nav .nav-item").on("click", function(){
     var path = window.location.pathname;

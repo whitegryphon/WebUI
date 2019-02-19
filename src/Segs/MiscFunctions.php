@@ -7,10 +7,6 @@
      */
     namespace Segs;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
- 
     use Segs\DatabaseConnection;
     use Segs\ReturnType;
 
@@ -66,15 +62,15 @@ error_reporting(E_ALL);
                 if($stmt = $db_conn->prepareStatement("INSERT INTO accounts(username, passw, salt) VALUES(?, ?, ?)")) {
                     $stmt->bind_param('sss', $m_username, $hashed_pass_bytearr, $sample_salt);
                     if(!$stmt->execute()) {
-                        $return_value->return_message[] = "User creation failed.";
+                        $return_value->return_message[] = "<div>User creation failed.<div>";
                         $return_value->value = 1;
                     } else {
-                        $return_value->return_message[] = "User '$m_username' added to database.";
+                        $return_value->return_message[] = "<div>The username '$m_username' hs been added to database.</div>";
                         $return_value->value = 0;
                     }
                 }
             } else {
-                $return_value->message = "Failed to connect to MySQL.";
+                $return_value->message = "<div>Failed to connect to the database.<div>";
                 $return_value->value = 1;
             }
             return $return_value;

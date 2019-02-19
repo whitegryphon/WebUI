@@ -14,6 +14,7 @@
 
     require_once '../../../config/config.php';
     require_once '../../../vendor/autoload.php';
+    
     use Segs\DatabaseConnection;
     use Segs\MiscFunctions;
     use Segs\ReturnType;
@@ -87,17 +88,18 @@
     
     function addUser($m_username, $m_password, &$m_user_message) {    
         $miscFunctions = new MiscFunctions();
-    
+        $m_server_message = new ReturnType();
+        
         global $site_admin;
-        $m_user_message = $miscFunctions->createUser($m_username, $m_password);
+        $m_server_message = $miscFunctions->createUser($m_username, $m_password);
 
-        if(!$m_user_message->value) {
+        if($m_server_message->value === 0) {
             $m_user_message->value = 0;
-            $m_user_message->return_message[] = "Account for {$m_username} successfully created.";
-            $m_user_message->return_message[] = "Welcome, hero!";
+            $m_user_message->return_message[] = "<div>Welcome, {$m_username}!</div>";
+            $m_user_message->return_message[] = "<div>Your account has been successfully created.</div>";
         } else {
             $m_user_message->value = 1;
-            $m_user_message->return_message[] = "Something went wrong. Please contact {$site_admin}.";
+            $m_user_message->return_message[] = "<div>Something went wrong. Please contact {$site_admin}.</div>";
         }
 
         return $m_user_message;
@@ -105,7 +107,9 @@
     
     if($canContinue) {
         addUser($username, $password1, $user_message);
-        if($login_users_on_create)
+        if($login_users_on_create) {
+            $_SESSION['isAuthenticated'] = true;
+        }
     } else {
         $user_message->return_message[] = "There was a problem creating your account.";
     }

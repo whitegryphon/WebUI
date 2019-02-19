@@ -20,10 +20,11 @@
     
     if(isset($_SESSION['isAuthenticated'])){
         $result->value = 0;
-        $result->return_message = "You have been logged out.";
+        $result->return_message[] = "<div>Goodbye, {$_SESSION['username']}.</div>";
+        $result->return_message[] = "<div>You have been logged out.</div>";
     } else {
         $result->value = 1;
-        $result->return_message = "You were not logged in.";
+        $result->return_message[] = "<div>You were not logged in.</div>";
     }
     
     unset($_SESSION['isAuthenticated']);

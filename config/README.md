@@ -14,75 +14,75 @@ minimum, change the following settings:
 ### Site Settings
 
 #### $site_title
-_default_ `$site_title             = "SEGS";`
+_default:_ `$site_title             = "SEGS";`
 
 #### $site_name  
-_default_ `$site_name              = "SEGS";`
+_default:_ `$site_name              = "SEGS";`
 
 #### $site_url   
-_default_ `$site_url               = "https://segs.io";`
+_default:_ `$site_url               = "https://segs.io";`
 
 #### $site_logo  
-_default_ `$site_logo              = "https://github.com/Segs/Segs/raw/develop/docs/segs-medallion-med.png";`
+_default:_ `$site_logo              = "https://github.com/Segs/Segs/raw/develop/docs/segs-medallion-med.png";`
 
 #### $site_admin 
-_default_ `$site_admin             = "webmaster@example.com";`
+_default:_ `$site_admin             = "webmaster@example.com";`
 
 #### $site_color        
-_default_ `$site_color             = "gold";`
+_default:_ `$site_color             = "gold";`
 
 Some Site colors are able to be customized using this setting. also changes web page card colors. The following
 colors are available: `dark | gold | purple | azure | green | orange | danger`
 
 #### $site_navbar_title
-_default_ `$site_navbar_title      = "SEGS WebUI";`
+_default:_ `$site_navbar_title      = "SEGS WebUI";`
 
 
 ### Database Settings
 #### $dbhost
-_default_ `$dbhost                 = "localhost";`
+_default:_ `$dbhost                 = "localhost";`
 
 #### $dbuser
-_default_ `$dbuser                 = "segsadmin";`
+_default:_ `$dbuser                 = "segsadmin";`
 
 #### $dbpass
-_default_ `$dbpass                 = "segs123";`
+_default:_ `$dbpass                 = "segs123";`
 
 #### $accdb 
-_default_ `$accdb                  = "segs";`
+_default:_ `$accdb                  = "segs";`
 
 #### $chardb
-_default_ `$chardb                 = "segs_game";`
+_default:_ `$chardb                 = "segs_game";`
 
 
 ### User Account Settings;
 
 #### $min_username_len
-_default_ `$min_username_len       = 6;`
+_default:_ `$min_username_len       = 6;`
 
 #### $min_password_len
-_default_ `$min_password_len       = 6;`
+_default:_ `$min_password_len       = 6;`
 
 #### $complex_password
-_default_ `$complex_password       = true;`
+_default:_ `$complex_password       = true;`
 
 #### $login_users_on_create
-_default_ `$login_users_on_create  = false;`
+_default:_ `$login_users_on_create  = false;`
 
 
 ### WebSocket connection
 
 #### $ws_target
-_default_ `$ws_target              = "ws://localhost/";`
+_default:_ `$ws_target              = "ws://localhost/";`
 
 #### $ws_port
-_default_ `$ws_port                = 6001;`
+_default:_ `$ws_port                = 6001;`
 
 #### $ws_use_ssl
-_default_ `$ws_use_ssl             = false;`
+_default:_ `$ws_use_ssl             = false;`
 
 
 ### Date and Time
 
 #### $timezone
-_default_ `$timezone               = "UTC";`
+_default:_ `$timezone               = "UTC";`

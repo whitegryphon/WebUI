@@ -341,7 +341,6 @@ function getAccountsInfo()
 {
     var elementAccts = document.getElementById("num_accts");
     var elementChars = document.getElementById("num_chars");
-    //fetch("https://segs.verybadpanda.com/assets/includes/getAccounts.php",
     fetch(window.location.origin + "/assets/includes/getAccounts.php",
           {method: 'GET'
           }).then(function(myBlob){
@@ -360,7 +359,6 @@ function moveCharacter()
     console.log("Character: " + selectedCharacter.value);
     console.log("Zone     : " + selectedZone.value);
     var postBody = {'char' : selectedCharacter.value, 'map' : selectedZone.value};
-    //     var CS = moveForm.zoneSelector;
     fetch(window.location.origin + "/assets/includes/moveCharacter.php",{
         method: 'POST',
         headers:{
@@ -372,26 +370,15 @@ function moveCharacter()
         return myBlob.json();
     }).then(function(results){
         var return_message = new Array();
+        for (var i = 0, len = results.return_message.length; i < len; i++) {
+            return_message.push(results.return_message[i]);
+        }
+        
         if(results.value == 0){
-            return_message.push(results.return_message);
             return_message.push("<div>You have successfully moved " + 
                 selectedCharacter.options[selectedCharacter.selectedIndex].text + " to " + 
                 selectedZone.options[selectedZone.selectedIndex].text + ".</div>");
-            
-            // var sb = document.getElementById('switchbox');
-            // var textbox = document.createElement('div');
-            // textbox.innerText = "You successfully moved to ";
-            // var cityname = document.createElement('SPAN');
-            // cityname.style.color = "DarkGreen";
-            // cityname.style.fontWeight = "bold";
-            // cityname.innerText = CS.options[CS.selectedIndex].text;
-            // textbox.append(cityname);
-            // sb.append(textbox);
-            // setTimeout(function (){
-            //     sb.removeChild(textbox);
-            // }, 2000);
         } else {
-            return_message.push(results.return_message);
             return_message.push("<div>There was an problem moving " + 
                 selectedCharacter.options[selectedCharacter.selectedIndex].text + " to " + 
                 selectedZone.options[selectedZone.selectedIndex].text + ".</div>");

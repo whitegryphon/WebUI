@@ -55,14 +55,14 @@
                 <?php require_once 'assets/includes/showMessage.php'; ?>
             </div>
             <div class="sidebar" data-color="<?php echo $site_color; ?>" data-background-color="white" data-image="">
-                <!--
-                    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-                    Tip 2: you can also add an image using data-image tag
-                -->
-                <div class="customLogo">
-                    <a href="<?php echo $site_url; ?>" class="simple-text logo-normal" target="_blank">
-                        <img class="img-fluid" src="<?php echo $site_logo ; ?>" alt="<?php echo $site_name; ?>">
-                    </a>
+                <div class="customLogo container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-8 col-sm-6 col-xs-4 mx-auto">
+                            <a href="<?php echo $site_url; ?>" class="simple-text logo-normal" target="_blank">
+                                <img class="img-fluid" src="<?php echo $site_logo ; ?>" alt="<?php echo $site_name; ?>">
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="sidebar-wrapper">
                     <?php require_once 'assets/includes/menuLeft.php'; ?>
@@ -81,6 +81,23 @@
                                     }
                                 ?>
                             </a>
+                            <div class="justify-content-end">
+                                <ul class="navbar-nav">
+                                <?php if(isset($_SESSION['isAuthenticated'])) { ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#logout" onclick="doLogout();">
+                                            <i class="fas fa-sign-out"></i>Log Out
+                                        </a>
+                                    </li>
+                                <?php } else { ?>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="#modal-login" data-toggle="modal" data-target="#modal-login">
+                                            <i class="fas fa-sign-in"></i>Login or Sign Up
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                </ul>
+                            </div>
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="sr-only">Toggle navigation</span>
@@ -88,23 +105,6 @@
                             <span class="navbar-toggler-icon icon-bar"></span>
                             <span class="navbar-toggler-icon icon-bar"></span>
                         </button>
-                        <div class="collapse navbar-collapse justify-content-end">
-                            <ul class="navbar-nav">
-                            <?php if(isset($_SESSION['isAuthenticated'])) { ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#logout" onclick="doLogout();">
-                                        <i class="fas fa-sign-out"></i>Log Out
-                                    </a>
-                                </li>
-                            <?php } else { ?>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="#modal-login" data-toggle="modal" data-target="#modal-login">
-                                        <i class="fas fa-sign-in"></i>Login or Sign Up
-                                    </a>
-                                </li>
-                            <?php } ?>
-                            </ul>
-                        </div>
                     </div>
                 </nav>
                 <!-- End Navbar -->

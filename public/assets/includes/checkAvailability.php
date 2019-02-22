@@ -19,7 +19,7 @@
     
     use Segs\DatabaseConnection;
 
-    $db_conn = new DatabaseConnection($dbhost, $dbuser, $dbpass, $accdb);
+    $db_conn = new DatabaseConnection($dbhost, $dbuser, $dbpass, $accdb, $dbport);
 
     if(!empty($_POST["username"]))
     {
@@ -39,5 +39,5 @@
         $_SESSION['IsAvailable'] = 'false';
         $response = 'not_supplied';
     }
-
+    
     echo json_encode($response);

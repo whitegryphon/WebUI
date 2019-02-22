@@ -61,13 +61,13 @@
         $user_message->return_message[] = "The username '$username' is not available.";
     }
     
-    if($password1 == null || $password1 == "") {
+    if($min_password_len > 0 && ($password1 == null || $password1 == "")) {
         $canContinue = false;
         $user_message->value = 1;
         $user_message->return_message[] = "Password1 is empty.";
     }
     
-    if($password2 == null || $password2 == "") {
+    if($min_password_len > 0 && ($password2 == null || $password2 == "")) {
         $canContinue = false;
         $user_message->value = 1;
         $user_message->return_message[] = "Password2 is empty.";

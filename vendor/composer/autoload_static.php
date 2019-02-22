@@ -38,49 +38,12 @@ class ComposerStaticInitaed93208401481e33c9e671b5454fb37
         ),
     );
 
-    public static $classMap = array (
-        'Segs\\DatabaseConnection' => __DIR__ . '/../..' . '/src/Segs/DatabaseConnection.php',
-        'Segs\\DateTime' => __DIR__ . '/../..' . '/src/Segs/DateTime.php',
-        'Segs\\MiscFunctions' => __DIR__ . '/../..' . '/src/Segs/MiscFunctions.php',
-        'Segs\\Passwords' => __DIR__ . '/../..' . '/src/Segs/Passwords.php',
-        'Segs\\ReturnType' => __DIR__ . '/../..' . '/src/Segs/ReturnType.php',
-        'Tivoka\\Client' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client.php',
-        'Tivoka\\Client\\BatchRequest' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/BatchRequest.php',
-        'Tivoka\\Client\\Connection\\AbstractConnection' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/Connection/AbstractConnection.php',
-        'Tivoka\\Client\\Connection\\ConnectionInterface' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/Connection/ConnectionInterface.php',
-        'Tivoka\\Client\\Connection\\Http' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/Connection/Http.php',
-        'Tivoka\\Client\\Connection\\Tcp' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/Connection/Tcp.php',
-        'Tivoka\\Client\\Connection\\WebSocket' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/Connection/WebSocket.php',
-        'Tivoka\\Client\\NativeInterface' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/NativeInterface.php',
-        'Tivoka\\Client\\Notification' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/Notification.php',
-        'Tivoka\\Client\\Request' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Client/Request.php',
-        'Tivoka\\Exception\\ConnectionException' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Exception/ConnectionException.php',
-        'Tivoka\\Exception\\Exception' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Exception/Exception.php',
-        'Tivoka\\Exception\\InvalidParamsException' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Exception/InvalidParamsException.php',
-        'Tivoka\\Exception\\ProcedureException' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Exception/ProcedureException.php',
-        'Tivoka\\Exception\\RemoteProcedureException' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Exception/RemoteProcedureException.php',
-        'Tivoka\\Exception\\SpecException' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Exception/SpecException.php',
-        'Tivoka\\Exception\\SyntaxException' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Exception/SyntaxException.php',
-        'Tivoka\\Server' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Server.php',
-        'Tivoka\\Server\\MethodWrapper' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Server/MethodWrapper.php',
-        'Tivoka\\Server\\Server' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Server/Server.php',
-        'Tivoka\\Tivoka' => __DIR__ . '/..' . '/tivoka/tivoka/lib/Tivoka/Tivoka.php',
-        'WebSocket\\BadOpcodeException' => __DIR__ . '/..' . '/textalk/websocket/lib/BadOpcodeException.php',
-        'WebSocket\\BadUriException' => __DIR__ . '/..' . '/textalk/websocket/lib/BadUriException.php',
-        'WebSocket\\Base' => __DIR__ . '/..' . '/textalk/websocket/lib/Base.php',
-        'WebSocket\\Client' => __DIR__ . '/..' . '/textalk/websocket/lib/Client.php',
-        'WebSocket\\ConnectionException' => __DIR__ . '/..' . '/textalk/websocket/lib/ConnectionException.php',
-        'WebSocket\\Exception' => __DIR__ . '/..' . '/textalk/websocket/lib/Exception.php',
-        'WebSocket\\Server' => __DIR__ . '/..' . '/textalk/websocket/lib/Server.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitaed93208401481e33c9e671b5454fb37::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitaed93208401481e33c9e671b5454fb37::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitaed93208401481e33c9e671b5454fb37::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitaed93208401481e33c9e671b5454fb37::$classMap;
 
         }, null, ClassLoader::class);
     }

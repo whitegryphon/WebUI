@@ -1,7 +1,7 @@
 /*
  * SEGS - Super Entity Game Server
  * http://www.segs.io/
- * Copyright (c) 2006 - 2018 SEGS Team (see AUTHORS.md)
+ * Copyright (c) 2006 - 2019 SEGS Team (see AUTHORS.md)
  * This software is licensed under the terms of the 3-clause BSD License. See LICENSE.md for details.
  */
 
@@ -139,8 +139,6 @@ function doSignup()
     return false;
 }
 
-/*menu handler*/
-//$(function(){
 function stripTrailingSlash(str)
 {
     if(str.substr(-1) == '/') {
@@ -148,9 +146,6 @@ function stripTrailingSlash(str)
     }
     return str;
 }
-
-var url = window.location.pathname;
-var activePage = stripTrailingSlash(url);
 
 function setActiveItem()
 {
@@ -193,22 +188,12 @@ $(function()
 	}
 	// create element id variable
 	$menuItem = "#menu_" + activePage;
-	// load page
-    // updateMain(activePage);
 	// set page active
 	$($menuItem).addClass('active');
 });
 
 function cityListPopulate(currentCity)
 {
-    //document.getElementById('zoneswitch').style.display = "block";
-// // //     var cities = ["Outbreak", "Atlas Park", "King's Row", "Galaxy City",
-// // //                   "Steel Canyon", "Skyway City", "Talos Island", "Independence Port",
-// // //                   "Founders' Falls", "Brickstown", "Peregrine Island"];
-// // //     var hazard = ["Perez Park", "Boomtown", "Dark Astoria", "Crey's Folly",
-// // //                   "Enviro Nightmare", "Elysium"];
-// // //     var trials = ["Abandoned Sewer Network", "Sewer Network", "Faultline",
-// // //                   "Terra Volta", "Eden", "The Hive", "Rikti Crash Site"];
     var zones = [];
     
     async function fetchZoneList(url)
@@ -277,8 +262,6 @@ function cityListPopulate(currentCity)
 */
 }
 
-var entities;
-
 async function selectCurrentZone(selectObject)
 {
     var character = selectObject.options[selectObject.selectedIndex].text;
@@ -288,12 +271,11 @@ async function selectCurrentZone(selectObject)
 
 async function getCurrentZone(characterName)
 {
+    var character;
     var bodycontent = {
             'username': '',
             'character_name' : characterName
     };
-    var character;
-    //var zone = [];
     const settings = {
         method: 'POST',
         headers: {
@@ -302,6 +284,7 @@ async function getCurrentZone(characterName)
         },
         body: JSON.stringify(bodycontent)
     };
+    
     async function fetchZone(url)
     {
         let response = await (await fetch(url,settings)
@@ -314,24 +297,7 @@ async function getCurrentZone(characterName)
             }));
         return response;
     }
-    /*
-    // fetch(window.location.origin + "/assets/includes/getZone.php",{
-    //     method: 'POST',
-    //     headers: {
-    //         'charset': 'utf-8',
-    //         'content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify(bodycontent)
-    // })
-    //     .then(myBlob => myBlob.json())
-    //     .then(function(results){
-    //         if(results.length == 0){
-    //             document.getElementById('switchbox').innerHTML = "Unable to retrieve zones.";
-    //         } else {
-    //             character = JSON.parse(results['return_message']);
-    //         }
-    //     });
-    */
+
     request = await fetchZone('/assets/includes/getZone.php')
         .then(function(data){
             return data;
@@ -347,21 +313,6 @@ async function getCurrentZone(characterName)
         .catch(reason => console.log(reason.message));
 
     return request;
-//     $.when(request).done(function(result){
-//         return result;
-//     });
-// //    $.when(request).done(function(zone) {
-//        if(zone.length == 0){
-//            document.getElementById('switchbox').innerHTML = "Unable to retrieve zones.";
-//        } else {
-//            character = JSON.parse(zone);
-//            console.log(character);
-//        }
-//        console.log('AHA!');
-//        console.log("character object: " + character);
-//        console.log("character MapIdx: " + character['value0']['MapIdx']);
-//        return character['value0']['MapIdx'];
-//    });
 }
 
 function doZoneSwitch() 
@@ -381,7 +332,6 @@ function doZoneSwitch()
             if(results.length == 0){
                 document.getElementById('switchbox').innerHTML = "You do not currently have any heroes on this server.<br>Once you have logged in and created one, you will see them here.";
             } else {
-                entities = results;
                 var myForm = document.createElement('form');
                 myForm.name = "zonemove";
                 myForm.id = "zonemove";
@@ -437,10 +387,7 @@ function doZoneSwitch()
                 document.getElementById('switchbox').appendChild(myForm);
                 selectedCharacterName = $("#characterSelect option:selected" ).text();
                 return selectedCharacterName;
-                //currZone = await (getCurrentZone(selectedCharacterName));
-                //cityListPopulate(await (getCurrentZone(selectedCharacterName)));
             }
-            //return currZone;
         }, function(){
             document.getElementById('switchbox').innerHTML = "We are unable to display any characters at this time.";
             return null;

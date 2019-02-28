@@ -202,47 +202,171 @@ $(function()
 function cityListPopulate(currentCity)
 {
     //document.getElementById('zoneswitch').style.display = "block";
-    var cities = ["Outbreak", "Atlas Park", "King's Row", "Galaxy City",
-                  "Steel Canyon", "Skyway City", "Talos Island", "Independence Port",
-                  "Founders' Falls", "Brickstown", "Peregrine Island"];
-    var hazard = ["Perez Park", "Boomtown", "Dark Astoria", "Crey's Folly",
-                  "Enviro Nightmare", "Elysium"];
-    var trials = ["Abandoned Sewer Network", "Sewer Network", "Faultline",
-                  "Terra Volta", "Eden", "The Hive", "Rikti Crash Site"];
-    var cs = document.getElementById('zoneSelector');
-    cs.innerHTML = "<option disabled>- Cities</option>";
-    var iterator = 0;
-    for(var j = 0; j < cities.length; j++){
-        var citystr = document.createElement('option');
-        citystr.value = iterator;
-        citystr.innerText = cities[j];
-        cs.appendChild(citystr);
-        iterator++;
+// // //     var cities = ["Outbreak", "Atlas Park", "King's Row", "Galaxy City",
+// // //                   "Steel Canyon", "Skyway City", "Talos Island", "Independence Port",
+// // //                   "Founders' Falls", "Brickstown", "Peregrine Island"];
+// // //     var hazard = ["Perez Park", "Boomtown", "Dark Astoria", "Crey's Folly",
+// // //                   "Enviro Nightmare", "Elysium"];
+// // //     var trials = ["Abandoned Sewer Network", "Sewer Network", "Faultline",
+// // //                   "Terra Volta", "Eden", "The Hive", "Rikti Crash Site"];
+    var zones = [];
+    
+    async function fetchZoneList(url)
+    {
+        let response = await (await fetch(url)).json();
+        return response;
     }
-    cs.innerHTML += "<option disabled>- Hazards</option>";
-    for(var j = 0; j < hazard.length; j++){
-        var citystr = document.createElement('option');
-        citystr.value = iterator;
-        citystr.innerText = hazard[j];
-        cs.appendChild(citystr);
-        iterator++;
-    }
-    cs.innerHTML += "<option disabled>- Trials</option>";
-    for(var j = 0; j < trials.length; j++){
-        let citystr = document.createElement('option');
-        citystr.value = iterator;
-        citystr.innerText = trials[j];
-        cs.appendChild(citystr);
-        iterator++;
-    }
-    cs.value = currentCity;
+    
+    request = fetchZoneList('/assets/js/zones.json')
+        .then(function(data){
+            zones = data;
+        })
+        .catch(reason => console.log(reason.message));
+
+    $.when(request).done(function(data) {
+        var cs = document.getElementById('zoneSelector');
+        cs.innerHTML = "<option disabled>- Cities</option>";
+        for(var j = 0; j < zones.cities.length; j++){
+            var citystr = document.createElement('option');
+            citystr.value = zones.cities[j].index;
+            citystr.innerText = zones.cities[j].name;
+            cs.appendChild(citystr);
+        }
+        cs.innerHTML += "<option disabled>- Hazards</option>";
+        for(var j = 0; j < zones.hazards.length; j++){
+            var citystr = document.createElement('option');
+            citystr.value = zones.hazards[j].index;
+            citystr.innerText = zones.hazards[j];
+            cs.appendChild(citystr);
+        }
+        cs.innerHTML += "<option disabled>- Trials</option>";
+        for(var j = 0; j < zones.trials.length; j++){
+            let citystr = document.createElement('option');
+            citystr.value = zones.trials[j].index;
+            citystr.innerText = zones.trials[j].name;
+            cs.appendChild(citystr);
+        }
+        cs.value = currentCity;
+    });
+
+    
+/*    
+// // //    var cs = document.getElementById('zoneSelector');
+// // //    cs.innerHTML = "<option disabled>- Cities</option>";
+// // //    for(var j = 0; j < zones.cities.length; j++){
+// // //        var citystr = document.createElement('option');
+// // //        citystr.value = zones.cities[j].index;
+// // //        citystr.innerText = zones.cities[j].name;
+// // //        cs.appendChild(citystr);
+// // //    }
+// // //    cs.innerHTML += "<option disabled>- Hazards</option>";
+// // //    for(var j = 0; j < zones.hazards.length; j++){
+// // //        var citystr = document.createElement('option');
+// // //        citystr.value = zones.hazards[j].index;
+// // //        citystr.innerText = zones.hazards[j];
+// // //        cs.appendChild(citystr);
+// // //    }
+// // //    cs.innerHTML += "<option disabled>- Trials</option>";
+// // //    for(var j = 0; j < zones.trials.length; j++){
+// // //        let citystr = document.createElement('option');
+// // //        citystr.value = zones.trials[j].index;
+// // //        citystr.innerText = zones.trials[j].name;
+// // //        cs.appendChild(citystr);
+// // //    }
+// // //    cs.value = currentCity;
+*/
 }
 
 var entities;
 
+async function selectCurrentZone(selectObject)
+{
+    var character = selectObject.options[selectObject.selectedIndex].text;
+    var cs = document.getElementById('zoneSelector');
+    cs.value = await getCurrentZone(character);
+}
+
+async function getCurrentZone(characterName)
+{
+    var bodycontent = {
+            'username': '',
+            'character_name' : characterName
+    };
+    var character;
+    //var zone = [];
+    const settings = {
+        method: 'POST',
+        headers: {
+            'charset': 'utf-8',
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(bodycontent)
+    };
+    async function fetchZone(url)
+    {
+        let response = await (await fetch(url,settings)
+            .then(response => response.json())
+            .then(json => {
+                return json.return_message;
+            })
+            .catch(e => {
+                return e;
+            }));
+        return response;
+    }
+    /*
+    // fetch(window.location.origin + "/assets/includes/getZone.php",{
+    //     method: 'POST',
+    //     headers: {
+    //         'charset': 'utf-8',
+    //         'content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(bodycontent)
+    // })
+    //     .then(myBlob => myBlob.json())
+    //     .then(function(results){
+    //         if(results.length == 0){
+    //             document.getElementById('switchbox').innerHTML = "Unable to retrieve zones.";
+    //         } else {
+    //             character = JSON.parse(results['return_message']);
+    //         }
+    //     });
+    */
+    request = await fetchZone('/assets/includes/getZone.php')
+        .then(function(data){
+            return data;
+        })
+        .then(function(zone) {
+            if(zone.length == 0){
+                document.getElementById('switchbox').innerHTML = "Unable to retrieve zones.";
+            } else {
+                character = JSON.parse(zone);
+            }
+            return character['value0']['MapIdx'];
+        })
+        .catch(reason => console.log(reason.message));
+
+    return request;
+//     $.when(request).done(function(result){
+//         return result;
+//     });
+// //    $.when(request).done(function(zone) {
+//        if(zone.length == 0){
+//            document.getElementById('switchbox').innerHTML = "Unable to retrieve zones.";
+//        } else {
+//            character = JSON.parse(zone);
+//            console.log(character);
+//        }
+//        console.log('AHA!');
+//        console.log("character object: " + character);
+//        console.log("character MapIdx: " + character['value0']['MapIdx']);
+//        return character['value0']['MapIdx'];
+//    });
+}
+
 function doZoneSwitch() 
 {
-    var bodycontent = {'user': ''}
+    var bodycontent = {'user': ''};
     fetch(window.location.origin + "/assets/includes/getCharacters.php",{
         method: 'POST',
         headers: {
@@ -253,6 +377,7 @@ function doZoneSwitch()
     })
         .then(myBlob => myBlob.json())
         .then(function(results){
+            var currZone = null;
             if(results.length == 0){
                 document.getElementById('switchbox').innerHTML = "You do not currently have any heroes on this server.<br>Once you have logged in and created one, you will see them here.";
             } else {
@@ -274,6 +399,8 @@ function doZoneSwitch()
                 var charselect = document.createElement('select');
                 charselect.id = "characterSelect";
                 charselect.name = "character";
+                charselect.setAttribute("onchange", "return selectCurrentZone(this)")
+
                 charselect.className = "custom-select mr-sm-2";
                 for(let i = 0; i < results.length; i++) {
                     let character = JSON.parse(results[i]);
@@ -308,10 +435,24 @@ function doZoneSwitch()
 
                 document.getElementById('switchbox').innerHTML = "";
                 document.getElementById('switchbox').appendChild(myForm);
-                cityListPopulate(1);
+                selectedCharacterName = $("#characterSelect option:selected" ).text();
+                return selectedCharacterName;
+                //currZone = await (getCurrentZone(selectedCharacterName));
+                //cityListPopulate(await (getCurrentZone(selectedCharacterName)));
             }
+            //return currZone;
         }, function(){
             document.getElementById('switchbox').innerHTML = "We are unable to display any characters at this time.";
+            return null;
+        })
+        .then(async function(selectedCharacterName){
+            var currZone = await getCurrentZone(selectedCharacterName);
+            return currZone;
+        })
+        .then(function(currZone){
+            if(currZone !== null){
+                cityListPopulate(currZone);
+            }
         });
 }
 
@@ -334,8 +475,6 @@ function moveCharacter()
     var moveForm = document.getElementById('zonemove');
     var selectedCharacter = moveForm.characterSelect;
     var selectedZone = moveForm.zoneSelector;
-    console.log("Character: " + selectedCharacter.value);
-    console.log("Zone     : " + selectedZone.value);
     var postBody = {'char' : selectedCharacter.value, 'map' : selectedZone.value};
     fetch(window.location.origin + "/assets/includes/moveCharacter.php",{
         method: 'POST',

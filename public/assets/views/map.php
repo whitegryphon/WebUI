@@ -1,9 +1,15 @@
-<div class="card">
-    <div class="card-header card-header-<?php echo $site_color; ?>">
-        <h4 class="card-title ">Paragon City</h4>
-        <p class="card-category">Interactive maps of our beloved city.</p>
-    </div>
-    <div class="card-body">
+<?php
+    /*
+     * SEGS - Super Entity Game Server
+     * http://www.segs.io/
+     * Copyright (c) 2006 - 2018 SEGS Team (see AUTHORS.md)
+     * This software is licensed under the terms of the 3-clause BSD License. See LICENSE.md for details.
+     */
+    $page_title = "Paragon City";
+    $page_summary = "Interactive maps of our beloved city.";
+
+    require "partials/page_top.php";
+?>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1700 1100">
 
             <image width="1700" height="1100" xlink:href="assets/img/maps/CoH_CE_Map_small.jpg" />
@@ -175,24 +181,6 @@
                 </g>
             </a>
         </svg>
-
-        <!--
-            <a href="#" data-featherlight="assets/img/maps/.png">
-                <g class="image_map">
-                    <title></title>
-                    <rect x="" y="" height="" width="" />
-                    <rect x="" y="" height="" width="" />
-                </g>
-            </a>
-            <a href="#" data-featherlight="assets/img/maps/.png">
-                <g class="image_map">
-                    <polygon points="" />
-                    <rect x="" y="" height="" width="" />
-                </g>
-            </a>
-        -->
-
-    </div>
-</div>
+<?php require_once "partials/page_bottom.php"; ?>
 
 			

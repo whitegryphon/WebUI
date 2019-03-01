@@ -23,7 +23,7 @@
     $server_uptime_color = "danger";
     $server_version = "NO DATA";
     $server_version_color = "danger";
-	
+
     try
     {
         $client = Tivoka\Client::connect($ws_target)->getNativeInterface();
@@ -70,16 +70,12 @@
     {
         // TODO: Handle error, as well as notify user and/or log.
     }
-
+    
+    $page_title = "Dashboard";
+    $page_summary = "Status of the server and users.";
+    
+    require "partials/page_top.php";
 ?>
-<div class="card">
-    <div class="card-header card-header-<?php echo $site_color; ?>">
-        <h4 class="card-title ">Dashboard</h4>
-        <p class="card-category">Status of the server and users.</p>
-    </div>
-    <div class="card-body">        
-        <div class="content">
-            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12">
                         <div class="card card-stats">
@@ -156,10 +152,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+<?php require_once "partials/page_bottom.php"; ?>
+
 <script type="text/javascript">
     window.onload = function () {
         getAccountsInfo();

@@ -1,10 +1,15 @@
+<?php
+    /*
+     * SEGS - Super Entity Game Server
+     * http://www.segs.io/
+     * Copyright (c) 2006 - 2018 SEGS Team (see AUTHORS.md)
+     * This software is licensed under the terms of the 3-clause BSD License. See LICENSE.md for details.
+     */
+    $page_title = "Building Segs in Visual Studio 2017";
+    $page_summary = "Instructions to setup Visual Studio, Qt5, and tools.";
 
-<div class="card">
-    <div class="card-header card-header-<?php echo $site_color; ?>">
-        <h4 class="card-title ">Building Segs in Visual Studio 2017</h4>
-        <p class="card-category"></p>
-    </div>
-    <div class="card-body">
+    require "partials/page_top.php";
+?>
         <ol> 
             <li>Install Visual Studio 2017 (<a href="https://visualstudio.microsoft.com/vs/community/">Community Edition Installer</a>)
                 <ul>
@@ -168,5 +173,4 @@
           ]
         }
         </pre>
-    </div>
-</div>
+<?php require_once "partials/page_bottom.php"; ?>

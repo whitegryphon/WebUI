@@ -221,7 +221,7 @@ function cityListPopulate(currentCity)
         for(var j = 0; j < zones.hazards.length; j++){
             var citystr = document.createElement('option');
             citystr.value = zones.hazards[j].index;
-            citystr.innerText = zones.hazards[j];
+            citystr.innerText = zones.hazards[j].name;
             cs.appendChild(citystr);
         }
         cs.innerHTML += "<option disabled>- Trials</option>";
@@ -691,5 +691,3 @@ $(".nav .nav-item").on("click", function(){
     $(".nav").find('.active').removeClass("active");
     $(this).addClass("active");
 });
-
-// Login form validation

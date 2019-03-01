@@ -8,12 +8,9 @@
 
     session_start();
 
-//    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
-//       header("Location: https://" . $_SERVER['HTTP_HOST']);
-//    }
- ini_set('display_errors', 1);
- ini_set('display_startup_errors', 1);
- error_reporting(E_ALL);
+    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
+       header("Location: https://" . $_SERVER['HTTP_HOST']);
+    }
 
     require_once '../../../config/config.php';
     require_once '../../../vendor/autoload.php';
